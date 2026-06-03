@@ -10,7 +10,14 @@ import anthropic
 
 logger = logging.getLogger(__name__)
 
-client = anthropic.Anthropic()
+import os
+try:
+    import streamlit as st
+    api_key = st.secrets.get("ANTHROPIC_API_KEY") or os.environ.get("ANTHROPIC_API_KEY")
+except:
+    api_key = os.environ.get("ANTHROPIC_API_KEY")
+
+client = anthropic.Anthropic(api_key=api_key)
 
 # ---------------------------------------------------------------------------
 # Prompt templates
